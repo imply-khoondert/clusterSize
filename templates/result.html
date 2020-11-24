@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+        <title>The Sizeler</title>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+        />
+    </head>
+    <style>
+        .alert {
+          background: green;
+          padding: 1rem;
+          border-radius: 5px;
+          color: white;
+          margin: 1rem;
+        }
+      </style>
+    <body>
+        <div class="container">
+            <h3>The Sizeler</h3>
+        </div>
+
+        <div class="container">
+          <form action="/" method="GET">
+            <label for="Configuration 1">{{ type1 }}</label>
+            <pre><code>
+{{ sum1 }}
+            </code></pre>
+            <label for="Configuration 2">{{ type2 }}</label>
+            <pre><code>
+{{ sum2 }}
+            </code></pre>
+            <input type="submit" value="Calculate Another" id="calc_btn" />    
+            </form>
+          </div>
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+        <title>The Sizeler</title>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+        />
+    </head>
+    <style>
+        .alert {
+          background: green;
+          padding: 1rem;
+          border-radius: 5px;
+          color: white;
+          margin: 1rem;
+        }
+      </style>
+    <body>
+        <div class="container">
+            <h3>The Sizeler</h3>
+        </div>
+
+        <!-- Form -->
+        <div class="container">
+            <form action="/send" method="POST">
+              <label for="CPU">CPU</label>
+              <input
+                type="text"
+                placeholder="CPU"
+                class="u-full-width"
+                name="cpu"
+              />
+      
+              <label for="Memory">Memory</label>
+              <input
+                type="text"
+                placeholder="Memory (in GB)"
+                class="u-full-width"
+                name="mem"
+              />
+             
+              <label for="Disk">Disk</label>
+              <input
+                type="text"
+                placeholder="Disk (in GB, required for 'Data' nodes)"
+                class="u-full-width"
+                name="disk"
+              />
+
+              <label for="Node Type">Node Type</label>
+              <select class="u-full-width" name="nodeType">
+                <option value="data">Data</option>
+                <option value="query">Query</option>
+                <option value="master">Master</option>
+              </select>
+      
+              <input type="submit" value="Calculate" id="calc_btn" />
+              <br />
+
+                
+            </form>
+          </div>
+    </body>
+</html>
