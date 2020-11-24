@@ -2,8 +2,6 @@ from flask import Flask, render_template, request
 import yaml
 import math
 
-# pipenv shell
-# flask run
 
 app = Flask(__name__)
 
@@ -126,3 +124,7 @@ def sizeData(cpu, mem, disk):
     middleManager['druid.indexer.fork.property.druid.server.http.numThreads'] = 50
     middleManager['druid.indexer.runner.javaOpts'] = '-server -Xmx3g -XX:+IgnoreUnrecognizedVMOptions -XX:MaxDirectMemorySize=10g -Duser.timezone=UTC -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/mnt/tmp/druid-peon.hprof -Dfile.encoding=UTF-8 -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager'
     return historical, middleManager
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
