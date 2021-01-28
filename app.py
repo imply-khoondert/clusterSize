@@ -55,13 +55,13 @@ def send(sum=sum):
 def sizeMaster(cpu, mem):
     coordinator = {}
     XmC = int((int(mem)* 1024) * 0.5)
-    coordinator['jvm.config.Xms'] = '-Xms' + str(XmC) + 'm'
-    coordinator['jvm.config.Xmx'] = '-Xmx' + str(XmC) + 'm'
+    coordinator['jvm.config.xms'] = '-Xms' + str(XmC) + 'm'
+    coordinator['jvm.config.xmx'] = '-Xmx' + str(XmC) + 'm'
 
     overlord = {}
     XmO = int((int(mem)* 1024) * 0.25)
-    overlord['jvm.config.Xms'] = '-Xms' + str(XmO) + 'm'
-    overlord['jvm.config.Xmx'] = '-Xmx' + str(XmO) + 'm'
+    overlord['jvm.config.xms'] = '-xms' + str(XmO) + 'm'
+    overlord['jvm.config.xmx'] = '-Xmx' + str(XmO) + 'm'
     return coordinator, overlord
 
 
@@ -72,16 +72,17 @@ def sizeQuery(cpu, mem):
     broker['druid.processing.buffer.sizeBytes'] = 500000000
     broker['druid.processing.numMergeBuffers'] = roundUpToEven(int(mem) * 0.8)
     broker['druid.server.http.numThreads'] = max(roundUpToEven(int(cpu) * 3.5), 20)
+    broker['druid.segmentCache.locations'] = "[{\"path\":\"/mnt/var/druid/segment-cache\",\"maxSize\": 1000000000}]"
     XmB = int(int(mem) * 0.35)
-    broker['jvm.config.Xms'] = '-Xms' + str(XmB) + 'g'
-    broker['jvm.config.Xmx'] = '-Xmx' + str(XmB) + 'g'
+    broker['jvm.config.xms'] = '-Xms' + str(XmB) + 'g'
+    broker['jvm.config.xmx'] = '-Xmx' + str(XmB) + 'g'
     maxDirect = int(int(mem) * 0.56)
     broker['jvm.config.xmx.MaxDirectMemorySize'] = '-XX:MaxDirectMemorySize=' + str(maxDirect) + 'g'
     
     router = {}
     XmR = roundUpDiv(int(mem), 16)
-    router['jvm.config.Xms'] = '-Xms' + str(XmR) + 'g'
-    router['jvm.config.Xmx'] = '-Xmx' + str(XmR) + 'g'
+    router['jvm.config.xms'] = '-Xms' + str(XmR) + 'g'
+    router['jvm.config.xmx'] = '-Xmx' + str(XmR) + 'g'
     router['druid.router.http.numConnections'] = 20
     router['druid.server.http.numThreads'] = max(roundUpToEven(int(cpu) * 3), 15)
     router['druid.router.http.numMaxThreads'] = router['druid.server.http.numThreads']
@@ -101,8 +102,8 @@ def sizeData(cpu, mem, disk):
     historical['druid.cache.sizeInBytes'] = int(mem) * 10000000
     historical['druid.segmentCache.locations'] = "[{\"path\":\"/mnt/var/druid/segment-cache\",\"maxSize\":" + str(historical['druid.server.maxSize']) + "}]"
     XmH = min(int(0.5 * int(cpu)), 24)
-    historical['jvm.config.Xms'] = '-Xms' + str(XmH) + 'g'
-    historical['jvm.config.Xmx'] = '-Xmx' + str(XmH) + 'g'
+    historical['jvm.config.xms'] = '-Xms' + str(XmH) + 'g'
+    historical['jvm.config.xmx'] = '-Xmx' + str(XmH) + 'g'
     maxDirect = int(((historical['druid.processing.numThreads'] + 
                       historical['druid.processing.numMergeBuffers'] +1 ) *
                       historical['druid.processing.buffer.sizeBytes'] ) / 100000000)
@@ -115,8 +116,8 @@ def sizeData(cpu, mem, disk):
         XmMM = 256
     else:
         XmMM = 128
-    middleManager['jvm.config.Xms'] = '-Xms' + str(XmMM) +'g'
-    middleManager['jvm.config.Xmx'] = '-Xmx' + str(XmMM) +'g'
+    middleManager['jvm.config.xms'] = '-Xms' + str(XmMM) +'g'
+    middleManager['jvm.config.xmx'] = '-Xmx' + str(XmMM) +'g'
     middleManager['druid.worker.capacity'] = roundUpDiv(int(cpu),2.67)
     middleManager['druid.indexer.fork.property.druid.processing.buffer.sizeBytes'] = 300000000
     middleManager['druid.indexer.fork.property.druid.processing.numMergeBuffers'] = 2
